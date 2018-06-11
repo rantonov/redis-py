@@ -219,7 +219,8 @@ def zset_force_score_pairs(response, **options):
     "Return the response as a list of (value, score) pairs"
     score_cast_func = options.get('score_cast_func', float)
     it = iter(response)
-    return list(izip(it, imap(score_cast_func, it)))
+    ret = list(izip(imap(score_cast_func, it), it))
+    return [(i[1],i[0]) for i in ret]
 
 
 def sort_return_tuples(response, **options):
